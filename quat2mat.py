@@ -10,12 +10,14 @@ def main(input_path_traj):
     lidar_path_name = input_path_traj.split('/')
     file_name = lidar_path_name[-1].split('.')
 
+
     with open(input_path_traj, 'r') as f, open(file_name[0] + '_matrix.txt', 'w+') as out_file:
         for line in f.readlines():
             tmp_txt = str.split(line.strip())         
-            time0 = float(tmp_txt[0])
+            time0 = tmp_txt[0]
             r = RR.from_quat([float(tmp_txt[4]), float(tmp_txt[5]), float(tmp_txt[6]), float(tmp_txt[7])]).as_matrix()
             t = np.matrix([float(tmp_txt[1]), float(tmp_txt[2]), float(tmp_txt[3])])
+
             T_ = np.hstack([r, t.transpose()]) # 水平拼接
             T = np.vstack([T_, np.array([0, 0, 0, 1])]) # 竖直拼接
 
