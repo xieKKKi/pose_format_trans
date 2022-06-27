@@ -10,12 +10,12 @@ def main(input_path_traj):
     lidar_path_name = input_path_traj.split('/')
     file_name = lidar_path_name[-1].split('.')
 
-    inverse = True
+    inverse = False # 是否取逆
 
     with open(input_path_traj, 'r') as f, open(file_name[0] + '_quaternion.txt', 'w+') as out_file:
         for line in f.readlines():
             tmp_txt = str.split(line.strip())         
-            time0 = float(tmp_txt[0])
+            time0 = tmp_txt[0]
             t = np.array([float(tmp_txt[4]), float(tmp_txt[8]), float(tmp_txt[12])])
             r = np.matrix([[float(tmp_txt[1]), float(tmp_txt[2]), float(tmp_txt[3])], \
                 [float(tmp_txt[5]), float(tmp_txt[6]), float(tmp_txt[7])], \
